@@ -3,6 +3,8 @@ import { Inter, DM_Serif_Text } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import StructuredData from "@/components/StructuredData";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -94,6 +96,8 @@ export default function RootLayout({
       <body className={`${inter.variable} ${dmSerif.variable} antialiased`}>
         <SmoothScroll />
         <StructuredData />
+        <Analytics />
+        <SpeedInsights />
         {children}
       </body>
     </html>
