@@ -18,30 +18,46 @@ export default function Contact() {
         </FadeUp>
 
         {/* Two-column: image + info left, form right — like Wembley newsletter section */}
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left */}
+        {/* Desktop: two-column layout */}
+        <div className="max-w-[1100px] mx-auto hidden lg:grid grid-cols-2 gap-16">
           <div>
-            {/* Image */}
             <FadeUp>
-              <div className="relative aspect-[4/3] rounded-2xl md:rounded-3xl overflow-hidden mb-10">
+              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden mb-10">
                 <Image
                   src="/img-ryan-cutout.png"
-                  alt="Temple Landscaping owner with equipment"
+                  alt="Temple Landscaping owner Ryan serving Calgary homeowners"
                   fill
                   className="object-cover object-bottom"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="50vw"
                   loading="lazy"
                 />
               </div>
             </FadeUp>
-
             <ContactInfoList />
           </div>
-
-          {/* Right: form */}
           <FadeUp delay={0.15}>
             <ContactForm />
           </FadeUp>
+        </div>
+
+        {/* Mobile: image → form → contact info stacked */}
+        <div className="max-w-[1100px] mx-auto lg:hidden flex flex-col gap-10">
+          <FadeUp>
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+              <Image
+                src="/img-ryan-cutout.png"
+                alt="Temple Landscaping owner with equipment"
+                fill
+                className="object-cover object-bottom"
+                sizes="100vw"
+                loading="lazy"
+              />
+            </div>
+          </FadeUp>
+          <FadeUp delay={0.1}>
+            <ContactForm />
+          </FadeUp>
+          <ContactInfoList />
         </div>
       </div>
     </section>

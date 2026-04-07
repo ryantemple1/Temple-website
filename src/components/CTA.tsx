@@ -46,11 +46,11 @@ export default function CTA() {
                 <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
               </a>
               <a
-                href="tel:+14035551234"
+                href="tel:+14033908395"
                 className="inline-flex items-center justify-center gap-2 text-[13px] font-medium uppercase tracking-[0.08em] text-white/60 px-4 py-3.5 hover:text-white transition-colors duration-300"
               >
                 <Phone className="h-3.5 w-3.5" />
-                (403) 555-1234
+                (403) 390-8395
               </a>
             </div>
           </FadeUp>

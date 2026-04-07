@@ -14,11 +14,11 @@ const services = [
     ctaLabel: "All Lawn Care Services",
     ctaHref: "/services/lawn-care",
     items: [
-      { name: "Weekly Mowing", desc: "Lawn mowing, edge trimming, blowing off sidewalks", slug: "weekly-lawn-mowing", img: "/img-mower.jpeg" },
-      { name: "Seasonal Cleanups", desc: "Spring & fall aeration, power raking, leaf removal", slug: "spring-fall-clean-ups", img: "/img-fall-cleanup.jpg" },
-      { name: "Hedge Trimming", desc: "Professional shaping of hedges and shrubs", slug: "hedge-trimming", img: "/img-trimmer.jpeg" },
-      { name: "Weed Control", desc: "Treatments to keep lawns and garden beds weed free", slug: "weed-control", img: "/img-fertilization.jpeg" },
-      { name: "Landscaping", desc: "Patios, walkways, retaining walls, sod, garden beds", slug: "landscaping", img: "/img-hardscape-aerial.jpeg" },
+      { name: "Weekly Mowing", desc: "Lawn mowing, edge trimming, blowing off sidewalks", slug: "weekly-lawn-mowing", img: "/img-mower.jpeg", alt: "Weekly lawn mowing service in SW Calgary by Temple Landscaping" },
+      { name: "Seasonal Cleanups", desc: "Spring & fall aeration, power raking, leaf removal", slug: "spring-fall-clean-ups", img: "/img-fall-cleanup.jpg", alt: "Fall leaf cleanup and seasonal lawn maintenance in Calgary" },
+      { name: "Hedge Trimming", desc: "Professional shaping of hedges and shrubs", slug: "hedge-trimming", img: "/img-trimmer-v2.jpeg", alt: "Professional hedge trimming and shaping in Calgary by Temple Landscaping" },
+      { name: "Weed Control", desc: "Treatments to keep lawns and garden beds weed free", slug: "weed-control", img: "/img-fertilization.jpeg", alt: "Weed control and lawn fertilization treatment in Calgary" },
+      { name: "Landscaping", desc: "Patios, walkways, retaining walls, sod, garden beds", slug: "landscaping", img: "/img-hardscape-aerial.jpeg", alt: "Hardscape landscaping with patio and walkway installation in Calgary" },
     ],
   },
   {
@@ -27,10 +27,10 @@ const services = [
     ctaLabel: "All Exterior Services",
     ctaHref: "/services/exterior-cleaning",
     items: [
-      { name: "Driveway Sealing", desc: "Clear coat sealing for exposed aggregate driveways", slug: "driveway-sealing", img: "/img-driveway-sealing.jpg" },
-      { name: "Window Cleaning", desc: "Streak-free interior and exterior window cleaning", slug: "window-cleaning", img: "/img-window-cleaning.png" },
-      { name: "Gutter Cleaning", desc: "Removal of leaves and debris from gutters and downspouts", slug: "gutter-cleaning", img: "/img-gutter-cleaning.png" },
-      { name: "Pressure Washing", desc: "Driveways, sidewalks, patios, and exterior surfaces", slug: "pressure-washing", img: "/img-pressure-washing.png" },
+      { name: "Driveway Sealing", desc: "Clear coat sealing for exposed aggregate driveways", slug: "driveway-sealing", img: "/img-driveway-sealing.jpg", alt: "Exposed aggregate driveway sealing in Calgary" },
+      { name: "Window Cleaning", desc: "Streak-free interior and exterior window cleaning", slug: "window-cleaning", img: "/img-window-cleaning-v2.jpeg", alt: "Professional window cleaning service in Calgary" },
+      { name: "Gutter Cleaning", desc: "Removal of leaves and debris from gutters and downspouts", slug: "gutter-cleaning", img: "/img-gutter-cleaning.png", alt: "Gutter cleaning and downspout maintenance in Calgary" },
+      { name: "Pressure Washing", desc: "Driveways, sidewalks, patios, and exterior surfaces", slug: "pressure-washing", img: "/img-pressure-washing.png", alt: "Professional pressure washing for driveways and patios in Calgary" },
     ],
   },
 ];
@@ -103,7 +103,7 @@ function ServicePanel({ items, ctaLabel, ctaHref }: { items: typeof services[0][
             >
               <Image
                 src={item.img}
-                alt={item.name}
+                alt={item.alt}
                 fill
                 className="object-cover"
                 sizes="90px"
@@ -115,10 +115,10 @@ function ServicePanel({ items, ctaLabel, ctaHref }: { items: typeof services[0][
       </div>
 
       {/* CTA button */}
-      <div className="mt-8 text-center">
+      <div className="mt-8">
         <Link
           href={ctaHref}
-          className="inline-flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.08em] border border-[var(--color-foreground)] text-[var(--color-foreground)] px-6 py-3 hover:bg-[var(--color-foreground)] hover:text-white transition-all duration-300 group/btn"
+          className="flex items-center justify-center gap-2 w-full text-[13px] font-medium uppercase tracking-[0.08em] border border-[var(--color-foreground)] text-[var(--color-foreground)] px-6 py-3.5 hover:bg-[var(--color-foreground)] hover:text-white transition-all duration-300 group/btn"
         >
           {ctaLabel}
           <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover/btn:translate-x-1" />
@@ -234,7 +234,7 @@ function MobileServicePanel({ items, ctaLabel, ctaHref }: { items: typeof servic
               >
                 <Image
                   src={item.img}
-                  alt={item.name}
+                  alt={item.alt}
                   fill
                   className="object-cover"
                   sizes="70px"
@@ -377,7 +377,7 @@ function HeroImage() {
           <motion.div className="absolute inset-0" style={{ opacity: mowerOpacity }}>
             <Image
               src="/img-mower-aerial.jpeg"
-              alt="Temple Landscaping"
+              alt="Weekly lawn mowing service in SW Calgary by Temple Landscaping"
               fill
               className="object-cover"
               style={{ objectPosition: "70% 25%" }}
@@ -388,7 +388,7 @@ function HeroImage() {
           <motion.div className="absolute inset-0" style={{ opacity: stripesOpacity }}>
             <Image
               src="/img-lawn-stripes.jpeg"
-              alt="Fresh cut lawn"
+              alt="Freshly mowed lawn with professional striping in SW Calgary"
               fill
               className="object-cover"
               sizes="1000px"

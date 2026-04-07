@@ -14,7 +14,7 @@ export default function About() {
           <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden">
             <Image
               src="/img-about-icon.jpeg"
-              alt="Temple Landscaping"
+              alt="Temple Landscaping owner Ryan serving Calgary homeowners"
               fill
               className="object-cover"
               sizes="96px"
@@ -83,7 +83,7 @@ export default function About() {
             <div className="relative aspect-[4/5] rounded-2xl md:rounded-3xl overflow-hidden">
               <Image
                 src="/img-lawn-rays.jpeg"
-                alt="Beautiful Calgary lawn maintained by Temple"
+                alt="Freshly mowed lawn with professional striping in SW Calgary"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -95,7 +95,7 @@ export default function About() {
             <div className="relative aspect-[4/5] rounded-2xl md:rounded-3xl overflow-hidden md:mt-16">
               <Image
                 src="/img-landscape-aerial.jpeg"
-                alt="Aerial view of landscaped property"
+                alt="Aerial view of landscaped property by Temple Landscaping in Calgary"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"

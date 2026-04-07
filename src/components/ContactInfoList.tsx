@@ -8,7 +8,7 @@ const EMAIL = "ryantemplelandscape@gmail.com";
 
 const contactItems = [
   { icon: MapPin, label: "Service Area", value: "Calgary, AB" },
-  { icon: Phone, label: "Phone", value: "(403) 555-1234", href: "tel:+14035551234" },
+  { icon: Phone, label: "Phone", value: "(403) 390-8395", href: "tel:+14033908395" },
   { icon: Mail, label: "Email", value: EMAIL, copyEmail: true },
 ];
 

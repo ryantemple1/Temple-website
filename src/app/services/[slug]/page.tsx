@@ -22,9 +22,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = getServiceBySlug(slug);
   if (!service) return {};
 
+  const title = `${service.title} in Calgary, AB | Temple Landscaping`;
+  const description = `${service.shortDescription} Serving Calgary and SW neighbourhoods. Free estimates. 500+ homes served.`;
+  const url = `https://www.templelandscaping.ca/services/${service.slug}`;
+
   return {
-    title: `${service.title} | Temple Landscaping & Exterior Services Calgary`,
-    description: service.shortDescription,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      images: [
+        {
+          url: "/og-logo.png",
+          width: 1200,
+          height: 630,
+          alt: `${service.title} in Calgary by Temple Landscaping`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/og-logo.png"],
+    },
+    alternates: {
+      canonical: url,
+    },
   };
 }
 

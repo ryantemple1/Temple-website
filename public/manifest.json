@@ -1,0 +1,20 @@
+{
+  "name": "Temple Landscaping & Exterior Services",
+  "short_name": "Temple Landscaping",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#4A6741",
+  "background_color": "#F4F1EB",
+  "icons": [
+    {
+      "src": "/logo-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

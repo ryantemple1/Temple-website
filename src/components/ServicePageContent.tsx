@@ -14,14 +14,67 @@ interface Props {
 }
 
 export default function ServicePageContent({ service, related }: Props) {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.templelandscaping.ca",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: "https://www.templelandscaping.ca/services",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: `https://www.templelandscaping.ca/services/${service.slug}`,
+      },
+    ],
+  };
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    description: service.shortDescription,
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Temple Landscaping & Exterior Services",
+      url: "https://www.templelandscaping.ca",
+      telephone: "+14033908395",
+    },
+    areaServed: {
+      "@type": "City",
+      name: "Calgary",
+    },
+    image: `https://www.templelandscaping.ca${service.heroImage}`,
+    url: `https://www.templelandscaping.ca/services/${service.slug}`,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+
       {/* Hero */}
       <section className="relative pt-[72px]">
         <div className="relative h-[350px] md:h-[420px] overflow-hidden">
           <Image
             src={service.heroImage}
-            alt={service.title}
+            alt={`${service.title} service in Calgary by Temple Landscaping`}
             fill
             className="object-cover"
             priority
@@ -106,7 +159,7 @@ export default function ServicePageContent({ service, related }: Props) {
               )}
 
               {/* CTA */}
-              <div className="mt-10 pt-8 border-t border-[var(--color-border-visible)]">
+              <div className="mt-10 pt-8 border-t border-[var(--color-border-visible)] text-center md:text-left">
                 <p className="text-[15px] text-[var(--color-muted-foreground)] mb-5">
                   Interested in {service.title.toLowerCase()}? Get a free, no obligation quote for your property.
                 </p>
@@ -124,7 +177,7 @@ export default function ServicePageContent({ service, related }: Props) {
               <div className="relative aspect-[3/4] rounded-2xl md:rounded-3xl overflow-hidden sticky top-[100px]">
                 <Image
                   src={service.heroImage}
-                  alt={service.title}
+                  alt={`${service.title} in Calgary, AB by Temple Landscaping`}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -147,31 +200,46 @@ export default function ServicePageContent({ service, related }: Props) {
             </h2>
           </FadeUp>
 
-          {/* Two-column: image + info left, form right */}
-          <div className="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Left */}
+          {/* Desktop: two-column */}
+          <div className="max-w-[1100px] mx-auto hidden lg:grid grid-cols-2 gap-16">
             <div>
-              {/* Image */}
               <FadeUp>
-                <div className="relative aspect-[4/3] rounded-2xl md:rounded-3xl overflow-hidden mb-10">
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden mb-10">
                   <Image
                     src="/img-ryan-cutout.png"
-                    alt="Temple Landscaping owner with equipment"
+                    alt="Temple Landscaping owner Ryan serving Calgary homeowners"
                     fill
                     className="object-cover object-bottom"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    sizes="50vw"
                     loading="lazy"
                   />
                 </div>
               </FadeUp>
-
               <ContactInfoList />
             </div>
-
-            {/* Right: form */}
             <FadeUp delay={0.15}>
               <ContactForm defaultService={service.slug} idPrefix="service" />
             </FadeUp>
+          </div>
+
+          {/* Mobile: image → form → contact info */}
+          <div className="max-w-[1100px] mx-auto lg:hidden flex flex-col gap-10">
+            <FadeUp>
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image
+                  src="/img-ryan-cutout.png"
+                  alt="Temple Landscaping owner with equipment"
+                  fill
+                  className="object-cover object-bottom"
+                  sizes="100vw"
+                  loading="lazy"
+                />
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.1}>
+              <ContactForm defaultService={service.slug} idPrefix="service" />
+            </FadeUp>
+            <ContactInfoList />
           </div>
         </div>
       </section>
@@ -195,7 +263,7 @@ export default function ServicePageContent({ service, related }: Props) {
                     <div className="relative h-[160px] sm:h-[180px] md:h-[200px] overflow-hidden rounded-lg mb-3">
                       <Image
                         src={r.heroImage}
-                        alt={r.title}
+                        alt={`${r.title} service in Calgary by Temple Landscaping`}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, 33vw"

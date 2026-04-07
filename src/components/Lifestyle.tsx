@@ -41,7 +41,7 @@ export default function Lifestyle() {
       >
         <Image
           src="/img-house-lawn.jpg"
-          alt=""
+          alt="Healthy green lawn maintained by Temple Landscaping in Calgary"
           fill
           className="object-cover opacity-[0.07]"
           sizes="100vw"
@@ -77,7 +77,7 @@ export default function Lifestyle() {
             >
               <Image
                 src="/img-garden-bed.jpg"
-                alt="Garden bed with black mulch and plantings by Temple"
+                alt="Landscaping garden bed with mulch and plantings in Calgary"
                 fill
                 className="object-cover"
                 sizes="35vw"
@@ -150,7 +150,7 @@ export default function Lifestyle() {
                 <div className="relative h-[72px]">
                   <Image
                     src="/img-garden-bed.jpg"
-                    alt=""
+                    alt="Landscaping garden bed with mulch and plantings in Calgary"
                     fill
                     className="object-cover"
                     sizes="100vw"
@@ -184,7 +184,7 @@ export default function Lifestyle() {
             >
               <Image
                 src="/img-house-lawn.jpg"
-                alt="Calgary home with fresh cut lawn"
+                alt="Healthy green lawn maintained by Temple Landscaping in Calgary"
                 fill
                 className="object-cover"
                 sizes="35vw"

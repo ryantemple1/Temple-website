@@ -16,7 +16,7 @@ export default function AboutPage() {
               <div className="relative w-14 h-14 md:w-16 md:h-16">
                 <Image
                   src="/logo-icon.png"
-                  alt="Temple Landscaping"
+                  alt="Temple Landscaping logo"
                   width={64}
                   height={64}
                   className="object-contain"
@@ -41,7 +41,7 @@ export default function AboutPage() {
               <div className="relative overflow-hidden rounded-2xl md:rounded-3xl aspect-[3/4]">
                 <Image
                   src="/img-ryan-about-v2.jpg"
-                  alt="Ryan, owner of Temple Landscaping & Exterior Services"
+                  alt="Temple Landscaping owner Ryan serving Calgary homeowners"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 380px"
@@ -77,44 +77,44 @@ export default function AboutPage() {
 
           {/* Credibility bar — full width */}
           <FadeUp>
-            <div className="grid grid-cols-3 sm:grid-cols-5 gap-y-8 gap-x-4 pt-10 mt-12 border-t border-[var(--color-border-visible)]">
-              <div>
-                <div className="font-sans text-[28px] sm:text-[36px] md:text-[42px] font-black text-[var(--color-sage)] leading-none">
+            <div className="flex justify-between sm:grid sm:grid-cols-5 sm:gap-x-4 pt-10 mt-12 border-t border-[var(--color-border-visible)]">
+              <div className="text-center">
+                <div className="font-sans text-[20px] sm:text-[36px] md:text-[42px] font-black text-[var(--color-sage)] leading-none">
                   500+
                 </div>
-                <div className="text-[13px] sm:text-[14px] text-[var(--color-muted-foreground)] mt-1.5">
-                  Homes Served
+                <div className="text-[11px] sm:text-[14px] text-[var(--color-muted-foreground)] mt-1">
+                  Homes
                 </div>
               </div>
-              <div>
-                <div className="font-sans text-[28px] sm:text-[36px] md:text-[42px] font-black text-[var(--color-sage)] leading-none">
+              <div className="text-center">
+                <div className="font-sans text-[20px] sm:text-[36px] md:text-[42px] font-black text-[var(--color-sage)] leading-none">
                   8+
                 </div>
-                <div className="text-[13px] sm:text-[14px] text-[var(--color-muted-foreground)] mt-1.5">
-                  Years in Calgary
+                <div className="text-[11px] sm:text-[14px] text-[var(--color-muted-foreground)] mt-1">
+                  Years
                 </div>
               </div>
-              <div>
-                <div className="font-sans text-[28px] sm:text-[36px] md:text-[42px] font-black text-[var(--color-sage)] leading-none">
+              <div className="text-center">
+                <div className="font-sans text-[20px] sm:text-[36px] md:text-[42px] font-black text-[var(--color-sage)] leading-none">
                   $3M
                 </div>
-                <div className="text-[13px] sm:text-[14px] text-[var(--color-muted-foreground)] mt-1.5">
-                  Insurance Coverage
+                <div className="text-[11px] sm:text-[14px] text-[var(--color-muted-foreground)] mt-1">
+                  Insured
                 </div>
               </div>
-              <div>
-                <div className="font-sans text-[28px] sm:text-[36px] md:text-[42px] font-black text-[var(--color-sage)] leading-none">
+              <div className="text-center">
+                <div className="font-sans text-[20px] sm:text-[36px] md:text-[42px] font-black text-[var(--color-sage)] leading-none">
                   100+
                 </div>
-                <div className="text-[13px] sm:text-[14px] text-[var(--color-muted-foreground)] mt-1.5">
-                  5-Star Reviews
+                <div className="text-[11px] sm:text-[14px] text-[var(--color-muted-foreground)] mt-1">
+                  Reviews
                 </div>
               </div>
-              <div>
-                <div className="font-sans text-[28px] sm:text-[36px] md:text-[42px] font-black text-[var(--color-sage)] leading-none">
+              <div className="text-center">
+                <div className="font-sans text-[20px] sm:text-[36px] md:text-[42px] font-black text-[var(--color-sage)] leading-none">
                   Free
                 </div>
-                <div className="text-[13px] sm:text-[14px] text-[var(--color-muted-foreground)] mt-1.5">
+                <div className="text-[11px] sm:text-[14px] text-[var(--color-muted-foreground)] mt-1">
                   Estimates
                 </div>
               </div>
@@ -133,27 +133,46 @@ export default function AboutPage() {
             </h2>
           </FadeUp>
 
-          <div className="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          {/* Desktop */}
+          <div className="max-w-[1100px] mx-auto hidden lg:grid grid-cols-2 gap-16">
             <div>
               <FadeUp>
-                <div className="relative aspect-[4/3] rounded-2xl md:rounded-3xl overflow-hidden mb-10">
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden mb-10">
                   <Image
                     src="/img-ryan-cutout.png"
-                    alt="Temple Landscaping owner with equipment"
+                    alt="Temple Landscaping owner Ryan serving Calgary homeowners"
                     fill
                     className="object-cover object-bottom"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    sizes="50vw"
                     loading="lazy"
                   />
                 </div>
               </FadeUp>
-
               <ContactInfoList />
             </div>
-
             <FadeUp delay={0.15}>
               <ContactForm idPrefix="about" />
             </FadeUp>
+          </div>
+
+          {/* Mobile: image → form → contact info */}
+          <div className="max-w-[1100px] mx-auto lg:hidden flex flex-col gap-10">
+            <FadeUp>
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image
+                  src="/img-ryan-cutout.png"
+                  alt="Temple Landscaping owner with equipment"
+                  fill
+                  className="object-cover object-bottom"
+                  sizes="100vw"
+                  loading="lazy"
+                />
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.1}>
+              <ContactForm idPrefix="about" />
+            </FadeUp>
+            <ContactInfoList />
           </div>
         </div>
       </section>

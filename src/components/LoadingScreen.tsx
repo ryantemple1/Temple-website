@@ -22,7 +22,7 @@ export default function LoadingScreen() {
         >
           <motion.img
             src="/logo-icon.png"
-            alt=""
+            alt="Temple Landscaping logo"
             className="mb-6 h-10 w-auto"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

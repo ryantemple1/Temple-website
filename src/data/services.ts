@@ -105,7 +105,7 @@ export const services: ServiceDetail[] = [
     categoryLabel: "Lawn Care & Landscaping",
     shortDescription:
       "Professional trimming and shaping of hedges and shrubs to keep your property looking clean and maintained.",
-    heroImage: "/img-trimmer.jpeg",
+    heroImage: "/img-trimmer-v2.jpeg",
     description: [
       "Overgrown hedges can make even the nicest property look neglected. Regular trimming keeps everything clean, shaped, and under control.",
       "We work with all types of hedges and shrubs, shaping them to your preference and cleaning up every clipping when the job is done. Most clients pair this with weekly mowing to keep the entire property looking its best.",
@@ -157,7 +157,7 @@ export const services: ServiceDetail[] = [
     categoryLabel: "Exterior Cleaning Services",
     shortDescription:
       "Professional window cleaning for a streak-free finish that improves the appearance of your home.",
-    heroImage: "/img-window-cleaning.png",
+    heroImage: "/img-window-cleaning-v2.jpeg",
     description: [
       "Clean windows make a noticeable difference to how your home looks from the street and how much natural light comes inside. We clean both interior and exterior windows, including hard to reach second story glass.",
       "Frames and sills are wiped down as part of every job. No streaks, no residue, just clear glass and a home that looks well cared for.",

@@ -11,18 +11,24 @@ const beforeAfterProjects = [
     category: "Fall Clean Up",
     before: "/img-cleanup-before.jpg",
     after: "/img-cleanup-after.jpg",
+    beforeAlt: "Calgary yard before seasonal fall cleanup by Temple Landscaping",
+    afterAlt: "Calgary yard after professional fall cleanup by Temple Landscaping",
   },
   {
     title: "Garden Bed Landscaping",
     category: "Landscaping",
     before: "/img-landscaping-before.jpg",
     after: "/img-landscaping-after.jpg",
+    beforeAlt: "Calgary garden bed before landscaping project by Temple Landscaping",
+    afterAlt: "Landscaping garden bed with mulch and plantings in Calgary",
   },
   {
     title: "Driveway Sealing",
     category: "Exterior Cleaning",
     before: "/img-sealing-before.jpg",
     after: "/img-sealing-after.jpg",
+    beforeAlt: "Calgary exposed aggregate driveway before sealing",
+    afterAlt: "Exposed aggregate driveway sealing in Calgary by Temple Landscaping",
   },
 ];
 
@@ -31,16 +37,18 @@ const bottomProjects = [
     title: "Weekly Lawn Mowing",
     category: "Lawn Care",
     image: "/img-weekly-mowing.jpg",
+    alt: "Weekly lawn mowing service result in SW Calgary by Temple Landscaping",
   },
   {
     title: "Hardscape Walkway",
     category: "Landscaping",
     image: "/img-hardscape.jpg",
+    alt: "Hardscape landscaping with patio and walkway installation in Calgary",
   },
 ];
 
 /* ── Before / After Slider ── */
-function BeforeAfterSlider({ before, after }: { before: string; after: string }) {
+function BeforeAfterSlider({ before, after, beforeAlt, afterAlt }: { before: string; after: string; beforeAlt: string; afterAlt: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(65); // Start at 65% to show mostly "after"
   const [isDragging, setIsDragging] = useState(false);
@@ -69,25 +77,50 @@ function BeforeAfterSlider({ before, after }: { before: string; after: string })
     setPosition((x / rect.width) * 100);
   }, []);
 
+  const startXRef = useRef(0);
+  const startYRef = useRef(0);
+  const isHorizontalRef = useRef(false);
+
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    startXRef.current = e.clientX;
+    startYRef.current = e.clientY;
+    isHorizontalRef.current = false;
     setIsDragging(true);
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
-    updatePosition(e.clientX);
-  }, [updatePosition]);
+  }, []);
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     if (!isDragging) return;
-    updatePosition(e.clientX);
+
+    const dx = Math.abs(e.clientX - startXRef.current);
+    const dy = Math.abs(e.clientY - startYRef.current);
+
+    // Determine direction on first significant move
+    if (!isHorizontalRef.current && (dx > 5 || dy > 5)) {
+      isHorizontalRef.current = dx > dy;
+      if (!isHorizontalRef.current) {
+        // Vertical — release capture so page scrolls normally
+        setIsDragging(false);
+        try { (e.target as HTMLElement).releasePointerCapture(e.pointerId); } catch {}
+        return;
+      }
+    }
+
+    if (isHorizontalRef.current) {
+      e.preventDefault();
+      updatePosition(e.clientX);
+    }
   }, [isDragging, updatePosition]);
 
   const handlePointerUp = useCallback(() => {
     setIsDragging(false);
+    isHorizontalRef.current = false;
   }, []);
 
   return (
     <div
       ref={containerRef}
-      className="relative aspect-[3/4] rounded-2xl md:rounded-3xl overflow-hidden cursor-ew-resize select-none touch-none"
+      className="relative aspect-[3/4] rounded-2xl md:rounded-3xl overflow-hidden cursor-ew-resize select-none touch-pan-y"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
@@ -95,7 +128,7 @@ function BeforeAfterSlider({ before, after }: { before: string; after: string })
       {/* After image — full background */}
       <Image
         src={after}
-        alt="After"
+        alt={afterAlt}
         fill
         className="object-cover"
         sizes="(max-width: 640px) 100vw, 33vw"
@@ -110,7 +143,7 @@ function BeforeAfterSlider({ before, after }: { before: string; after: string })
       >
         <img
           src={before}
-          alt="Before"
+          alt={beforeAlt}
           className="absolute inset-0 w-full h-full object-cover"
           style={{ minWidth: containerRef.current?.offsetWidth || "100%" }}
           draggable={false}
@@ -172,7 +205,7 @@ export default function Portfolio() {
             {beforeAfterProjects.map((project, i) => (
               <FadeUp key={project.title} delay={i * 0.08}>
                 <div>
-                  <BeforeAfterSlider before={project.before} after={project.after} />
+                  <BeforeAfterSlider before={project.before} after={project.after} beforeAlt={project.beforeAlt} afterAlt={project.afterAlt} />
                   <div className="mt-4">
                     <p className="label-caps mb-1">{project.category}</p>
                     <p className="text-[15px] font-medium text-[var(--color-foreground)]">
@@ -192,7 +225,7 @@ export default function Portfolio() {
                   <div className="relative aspect-[3/2] rounded-2xl md:rounded-3xl overflow-hidden mb-4">
                     <Image
                       src={project.image}
-                      alt={project.title}
+                      alt={project.alt}
                       fill
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                       sizes="(max-width: 640px) 100vw, 50vw"

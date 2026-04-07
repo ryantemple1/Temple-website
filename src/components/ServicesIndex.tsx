@@ -28,13 +28,13 @@ export default function ServicesIndex() {
     <>
       {/* Hero — editorial with grass landscape */}
       <section ref={heroRef} className="pt-[72px] bg-[var(--color-background)] relative overflow-hidden">
-        <div className="relative mx-auto max-w-[1200px] px-6 md:px-10 pt-14 md:pt-20">
+        <div className="relative mx-auto max-w-[1200px] px-6 md:px-10 pt-10 md:pt-20">
           <FadeUp className="text-center">
             <div className="flex justify-center mb-6">
               <div className="relative w-14 h-14 md:w-16 md:h-16">
                 <Image
                   src="/logo-icon.png"
-                  alt="Temple Landscaping"
+                  alt="Temple Landscaping logo"
                   fill
                   className="object-contain"
                   sizes="64px"
@@ -46,23 +46,22 @@ export default function ServicesIndex() {
             <h1 className="font-sans text-[clamp(36px,6vw,64px)] font-black text-[var(--color-foreground)] tracking-[-0.02em] leading-[1.05] uppercase mb-5">
               Our Services
             </h1>
-            <p className="text-[17px] md:text-[18px] text-[var(--color-muted-foreground)] leading-[1.75] max-w-[500px] mx-auto">
+            <p className="text-[15px] md:text-[18px] text-[var(--color-muted-foreground)] leading-[1.75] max-w-[320px] md:max-w-[500px] mx-auto text-left md:text-center">
               Two dedicated service divisions: lawn care &amp; landscaping
               and exterior cleaning. Focused expertise for every job.
             </p>
           </FadeUp>
         </div>
 
-        {/* Stacked: grass and cards occupy the same space */}
-        <div className="relative mt-8 md:mt-12 pb-16 md:pb-24">
-          {/* Grass — fades out on scroll */}
+        {/* Desktop: stacked grass/cards animation */}
+        <div className="hidden md:block relative mt-12 pb-24">
           <motion.div
             className="w-full overflow-hidden"
             style={{ opacity: grassOpacity }}
           >
             <img
               src="/hero-grass.png"
-              alt=""
+              alt="Healthy green lawn maintained by Temple Landscaping in Calgary"
               className="w-full object-cover object-top pointer-events-none select-none"
               style={{
                 maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
@@ -70,14 +69,12 @@ export default function ServicesIndex() {
               }}
             />
           </motion.div>
-
-          {/* Cards — stacked on top, fade in + rise as grass fades */}
           <motion.div
-            className="absolute inset-0 z-10 flex items-center justify-center px-6 md:px-10"
+            className="absolute inset-0 z-10 flex items-center justify-center px-10"
             style={{ opacity: cardsOpacity, y: cardsY }}
           >
-            <div className="w-full max-w-[1200px] grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-7">
-              {categoryData.map((category, index) => {
+            <div className="w-full max-w-[1200px] grid grid-cols-2 gap-7">
+              {categoryData.map((category) => {
                 const categoryServices = getServicesByCategory(category.slug);
                 return (
                   <Link
@@ -85,17 +82,17 @@ export default function ServicesIndex() {
                     href={`/services/${category.slug}`}
                     className="group block cursor-pointer"
                   >
-                    <div className="relative overflow-hidden rounded-2xl md:rounded-3xl h-[320px] sm:h-[380px] md:h-[420px]">
+                    <div className="relative overflow-hidden rounded-3xl h-[420px]">
                       <Image
                         src={category.heroImage}
-                        alt={category.title}
+                        alt={`${category.title} services in Calgary by Temple Landscaping`}
                         fill
                         className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        sizes="50vw"
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
-                      <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 md:p-10">
+                      <div className="absolute inset-0 flex flex-col justify-end p-10">
                         <span className="label-caps block mb-2" style={{ color: "white" }}>
                           {categoryServices.length} Services
                         </span>
@@ -116,6 +113,49 @@ export default function ServicesIndex() {
               })}
             </div>
           </motion.div>
+        </div>
+
+        {/* Mobile: stacked cards with clean separation */}
+        <div className="md:hidden px-6 pt-10 pb-12">
+          <div className="border-t border-[var(--color-border-visible)] pt-10">
+            <div className="flex flex-col gap-5">
+              {categoryData.map((category, index) => {
+                const categoryServices = getServicesByCategory(category.slug);
+                return (
+                  <FadeUp key={category.slug} delay={index * 0.1}>
+                    <Link
+                      href={`/services/${category.slug}`}
+                      className="group block"
+                    >
+                      <div className="relative overflow-hidden rounded-2xl h-[260px]">
+                        <Image
+                          src={category.heroImage}
+                          alt={`${category.title} services in Calgary by Temple Landscaping`}
+                          fill
+                          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                          sizes="100vw"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/5" />
+                        <div className="absolute inset-0 flex flex-col justify-end p-6">
+                          <span className="label-caps block mb-1.5" style={{ color: "rgba(255,255,255,0.7)" }}>
+                            {categoryServices.length} Services
+                          </span>
+                          <h3 className="font-sans text-[22px] font-black text-white tracking-[-0.01em] leading-[1.1] uppercase mb-2">
+                            {category.title}
+                          </h3>
+                          <span className="inline-flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.08em] text-white/80">
+                            View Services
+                            <ArrowRight className="h-3 w-3" />
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </FadeUp>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -138,7 +178,7 @@ export default function ServicesIndex() {
                   <div className="overflow-hidden rounded-2xl md:rounded-3xl mb-5">
                     <Image
                       src={service.heroImage}
-                      alt={service.title}
+                      alt={`${service.title} service in Calgary by Temple Landscaping`}
                       width={600}
                       height={400}
                       className="w-full h-[220px] object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
@@ -176,27 +216,46 @@ export default function ServicesIndex() {
             </h2>
           </FadeUp>
 
-          <div className="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          {/* Desktop */}
+          <div className="max-w-[1100px] mx-auto hidden lg:grid grid-cols-2 gap-16">
             <div>
               <FadeUp>
-                <div className="relative aspect-[4/3] rounded-2xl md:rounded-3xl overflow-hidden mb-10">
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden mb-10">
                   <Image
                     src="/img-ryan-cutout.png"
-                    alt="Temple Landscaping owner with equipment"
+                    alt="Temple Landscaping owner Ryan serving Calgary homeowners"
                     fill
                     className="object-cover object-bottom"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    sizes="50vw"
                     loading="lazy"
                   />
                 </div>
               </FadeUp>
-
               <ContactInfoList />
             </div>
-
             <FadeUp delay={0.15}>
               <ContactForm idPrefix="services" />
             </FadeUp>
+          </div>
+
+          {/* Mobile: image → form → contact info */}
+          <div className="max-w-[1100px] mx-auto lg:hidden flex flex-col gap-10">
+            <FadeUp>
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image
+                  src="/img-ryan-cutout.png"
+                  alt="Temple Landscaping owner with equipment"
+                  fill
+                  className="object-cover object-bottom"
+                  sizes="100vw"
+                  loading="lazy"
+                />
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.1}>
+              <ContactForm idPrefix="services" />
+            </FadeUp>
+            <ContactInfoList />
           </div>
         </div>
       </section>

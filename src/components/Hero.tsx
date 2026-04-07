@@ -1,16 +1,38 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export default function Hero() {
+  // Mobile scroll
+  const mobileRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: mobileRef,
+    offset: ["start start", "end start"],
+  });
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const imgScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
+  const beforeOpacity = useTransform(scrollYProgress, [0, 0.03], [1, 0]);
+  const afterOpacity = useTransform(scrollYProgress, [0.01, 0.04], [0, 1]);
+
+  // Desktop scroll
+  const desktopRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: desktopProgress } = useScroll({
+    target: desktopRef,
+    offset: ["start start", "end start"],
+  });
+  const deskBeforeOpacity = useTransform(desktopProgress, [0, 0.06], [1, 0]);
+  const deskAfterOpacity = useTransform(desktopProgress, [0.02, 0.08], [0, 1]);
+  const deskImgScale = useTransform(desktopProgress, [0, 0.1], [1.02, 1]);
+
   return (
     <>
     {/* ── Mobile hero ── */}
-    <section className="md:hidden bg-[var(--color-background)] h-[100dvh] flex flex-col pt-[72px]">
+    <section ref={mobileRef} className="md:hidden bg-[var(--color-background)] h-[100dvh] flex flex-col pt-[72px]">
 
       {/* All content — evenly distributed across the full height */}
       <div className="flex-1 flex flex-col items-center justify-evenly px-6 pb-[60px]">
@@ -48,31 +70,57 @@ export default function Hero() {
             Our Services
           </a>
           <a
-            href="tel:+14035551234"
+            href="tel:+14033908395"
             className="inline-flex items-center justify-center text-[12px] font-medium tracking-[0.02em] border border-[var(--color-border-visible)] text-[var(--color-muted-foreground)] px-5 py-3 whitespace-nowrap hover:border-[var(--color-foreground)] hover:text-[var(--color-foreground)] transition-all duration-300"
           >
-            (403) 555-1234
+            (403) 390-8395
           </a>
         </motion.div>
 
-        {/* Grass graphic */}
+        {/* Lawn crossfade — unmowed → striped on scroll */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.8, ease }}
-          className="w-full pointer-events-none select-none"
+          transition={{ duration: 2, delay: 0.5, ease }}
+          className="w-full pointer-events-none select-none overflow-hidden"
         >
-          <img
-            src="/hero-grass.png"
-            alt=""
-            className="w-full h-[25vh] object-cover object-top"
-            style={{
-              maskImage: "linear-gradient(to bottom, transparent 0%, black 30%), linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 30%), linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-              maskComposite: "intersect",
-              WebkitMaskComposite: "destination-in",
-            }}
-          />
+          <motion.div
+            style={{ y: imgY, scale: imgScale }}
+            className="relative w-[140%] -ml-[20%] h-[36vh]"
+          >
+            {/* Before — unmowed grass */}
+            <motion.div className="absolute inset-0" style={{ opacity: beforeOpacity }}>
+              <Image
+                src="/img-grass-before.jpg"
+                alt=""
+                fill
+                className="object-cover"
+                sizes="100vw"
+                priority
+              />
+            </motion.div>
+            {/* After — fresh stripes */}
+            <motion.div className="absolute inset-0" style={{ opacity: afterOpacity }}>
+              <Image
+                src="/img-lawn-stripes-mobile.jpeg"
+                alt=""
+                fill
+                className="object-cover"
+                sizes="100vw"
+                priority
+              />
+            </motion.div>
+            {/* Multi-layer fade — dissolves edges into the page */}
+            <div className="absolute inset-0" style={{
+              background: "radial-gradient(ellipse 75% 65% at 50% 50%, transparent 35%, var(--color-background) 68%)",
+            }} />
+            <div className="absolute inset-0" style={{
+              background: "linear-gradient(to bottom, var(--color-background) 0%, transparent 30%, transparent 70%, var(--color-background) 100%)",
+            }} />
+            <div className="absolute inset-0" style={{
+              background: "linear-gradient(to right, var(--color-background) 0%, transparent 15%, transparent 85%, var(--color-background) 100%)",
+            }} />
+          </motion.div>
         </motion.div>
 
         {/* Credibility marquee */}
@@ -105,7 +153,7 @@ export default function Hero() {
     </section>
 
     {/* ── Desktop hero ── */}
-    <section className="hidden md:flex bg-[var(--color-background)] h-[100dvh] flex-col">
+    <section ref={desktopRef} className="hidden md:flex bg-[var(--color-background)] h-[100dvh] flex-col">
       {/* Navbar spacer */}
       <div className="h-[72px] shrink-0" />
 
@@ -118,14 +166,28 @@ export default function Hero() {
           transition={{ duration: 1.2, delay: 0.2, ease }}
           className="absolute inset-0 rounded-2xl md:rounded-3xl overflow-hidden"
         >
-          <Image
-            src="/img-lawn-stripes.jpeg"
-            alt="Professional lawn care and landscaping in Calgary"
-            fill
-            className="object-cover object-top"
-            priority
-            sizes="100vw"
-          />
+          {/* Before — unmowed grass, subtle zoom out on scroll */}
+          <motion.div className="absolute inset-0" style={{ opacity: deskBeforeOpacity, scale: deskImgScale }}>
+            <Image
+              src="/img-grass-before.jpg"
+              alt="Unmowed lawn before Temple Landscaping service"
+              fill
+              className="object-cover object-center"
+              priority
+              sizes="100vw"
+            />
+          </motion.div>
+          {/* After — fresh stripes */}
+          <motion.div className="absolute inset-0" style={{ opacity: deskAfterOpacity }}>
+            <Image
+              src="/img-lawn-stripes.jpeg"
+              alt="Professional lawn care and landscaping services in Calgary, Alberta"
+              fill
+              className="object-cover object-top"
+              priority
+              sizes="100vw"
+            />
+          </motion.div>
 
           {/* Subtle gradient at bottom for legibility */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
@@ -162,7 +224,7 @@ export default function Hero() {
               </h1>
               <img
                 src="/logo-icon.png"
-                alt="Temple Landscaping"
+                alt="Temple Landscaping logo"
                 className="h-[1em] w-auto opacity-90" style={{ fontSize: "clamp(36px,6vw,80px)" }}
               />
             </div>
@@ -195,10 +257,10 @@ export default function Hero() {
                 Free Quote
               </a>
               <a
-                href="tel:+14035551234"
+                href="tel:+14033908395"
                 className="inline-flex items-center justify-center text-[13px] sm:text-[14px] font-medium tracking-[0.02em] border border-[var(--color-border-visible)] text-[var(--color-muted-foreground)] px-5 sm:px-6 py-3 sm:py-3.5 hover:border-[var(--color-foreground)] hover:text-[var(--color-foreground)] transition-all duration-300 shrink-0"
               >
-                (403) 555-1234
+                (403) 390-8395
               </a>
             </div>
           </motion.div>
