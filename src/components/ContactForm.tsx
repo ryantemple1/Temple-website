@@ -172,8 +172,8 @@ export default function ContactForm({
         >
           <option value="">Select a service</option>
           <optgroup label="Lawn Care">
-            <option value="lawn-mowing">Weekly Lawn Mowing</option>
-            <option value="spring-fall-cleanup">Spring &amp; Fall Clean Up</option>
+            <option value="weekly-lawn-mowing">Weekly Lawn Mowing</option>
+            <option value="spring-fall-clean-ups">Spring &amp; Fall Clean Ups</option>
             <option value="landscaping">Landscaping</option>
             <option value="hedge-trimming">Hedge Trimming</option>
             <option value="weed-control">Weed Control</option>
