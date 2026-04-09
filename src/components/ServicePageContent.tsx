@@ -95,7 +95,7 @@ export default function ServicePageContent({ service, related }: Props) {
       </section>
 
       {/* Breadcrumb */}
-      <section className="bg-[var(--color-surface)] border-b border-[var(--color-border-visible)]">
+      <section id="service-info" className="bg-[var(--color-surface)] border-b border-[var(--color-border-visible)]">
         <div className="mx-auto max-w-[1200px] px-6 py-4">
           <div className="flex items-center gap-2 text-[14px]">
             <Link href="/" className="text-[var(--color-muted-foreground)] hover:text-[var(--color-sage)] transition-colors">Home</Link>

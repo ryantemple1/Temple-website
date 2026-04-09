@@ -46,7 +46,7 @@ function ServicePanel({ items, ctaLabel, ctaHref }: { items: typeof services[0][
         return (
           <Link
             key={item.slug}
-            href={`/services/${item.slug}`}
+            href={`/services/${item.slug}#service-info`}
             className="block border-b border-[var(--color-border-visible)] relative"
             onMouseEnter={() => setActive(item.slug)}
             onMouseLeave={() => setActive(null)}
@@ -178,7 +178,7 @@ function MobileServicePanel({ items, ctaLabel, ctaHref }: { items: typeof servic
           return (
             <Link
               key={item.slug}
-              href={`/services/${item.slug}`}
+              href={`/services/${item.slug}#service-info`}
               ref={(el) => { if (el) itemRefs.current.set(item.slug, el); }}
               data-slug={item.slug}
               className="block border-b border-[var(--color-border-visible)] relative"
